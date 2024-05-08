@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlogApp.Server", "MyBlogApp.Server\MyBlogApp.Server.csproj", "{757CDEEC-1454-4A09-B268-C61AB4689807}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "myblogapp.client", "myblogapp.client\myblogapp.client.esproj", "{3CF8044A-7FEC-464E-A43B-680E6954C92F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{757CDEEC-1454-4A09-B268-C61AB4689807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{757CDEEC-1454-4A09-B268-C61AB4689807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{757CDEEC-1454-4A09-B268-C61AB4689807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{757CDEEC-1454-4A09-B268-C61AB4689807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CF8044A-7FEC-464E-A43B-680E6954C92F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CF8044A-7FEC-464E-A43B-680E6954C92F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CF8044A-7FEC-464E-A43B-680E6954C92F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3CF8044A-7FEC-464E-A43B-680E6954C92F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CF8044A-7FEC-464E-A43B-680E6954C92F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CF8044A-7FEC-464E-A43B-680E6954C92F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16EAFD9C-8E90-4526-BEDA-438FC1D6C814}
+	EndGlobalSection
+EndGlobal
