@@ -1,4 +1,5 @@
 ﻿using MyBlogApp.Server.Data;
+using MyBlogApp.Server.Models;
 using System.Security.Claims;
 using System.Text;
 
@@ -6,6 +7,66 @@ namespace MyBlogApp.Server.Services
 {
     public class UsersService
     {
+        private MyAppDataContext _dataContext;
+
+        public UsersService(MyAppDataContext dataContext)
+        {
+            _dataContext = dataContext;
+        }
+
+        public UserModel Create(UserModel userModel)
+        {
+            var newUser = new User
+            {
+                Name = userModel.Name,
+                Email = userModel.Email,
+                Password = userModel.Password,
+                Description = userModel.Description,
+                Photo = userModel.Photo,
+            };
+            _dataContext.Users.Add(newUser);
+            _dataContext.SaveChanges();
+
+            userModel.Id = newUser.Id;
+
+            return userModel;
+        }
+
+        public UserModel Update(UserModel userModel)
+        {
+            var userToUpdate = _dataContext.Users.FirstOrDefault(x => x.Id == userModel.Id);
+
+            if (userToUpdate == null)
+            {
+                return null;
+            }
+
+            userToUpdate.Name = userModel.Name;
+            userToUpdate.Email = userModel.Email;
+            userToUpdate.Password = userModel.Password;
+            userToUpdate.Description = userModel.Description;
+            userToUpdate.Photo = userModel.Photo;
+
+            _dataContext.Users.Update(userToUpdate);
+            _dataContext.SaveChanges();
+
+            return userModel;
+        }
+        
+        public UserModel Update(User userToUpdate, UserModel userModel)
+        {
+            userToUpdate.Name = userModel.Name;
+            userToUpdate.Email = userModel.Email;
+            userToUpdate.Password = userModel.Password;
+            userToUpdate.Description = userModel.Description;
+            userToUpdate.Photo = userModel.Photo;
+
+            _dataContext.Users.Update(userToUpdate);
+            _dataContext.SaveChanges();
+
+            return userModel;
+        }
+
         public (string login, string password) GetUserLoginPassFromBasicAuth(HttpRequest request)
         {
             string userName = "";
@@ -42,9 +103,15 @@ namespace MyBlogApp.Server.Services
             return (claimsIdentity, currentUser.Id);
         }
 
-        private User? GetUserByLogin(string email)
+        public User? GetUserByLogin(string email)
         {
-            throw new NotImplementedException();
+            return _dataContext.Users.FirstOrDefault(x => x.Email == email);
+        }
+
+        public void DeleteUser(User user)
+        {
+            _dataContext.Users.Remove(user);
+            _dataContext.SaveChanges();
         }
 
         private bool VerifyHashedPassword(string password1, string password2)

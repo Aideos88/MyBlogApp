@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MyBlogApp.Server.Data;
 using MyBlogApp.Server.Models;
 using MyBlogApp.Server.Services;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,22 +13,36 @@ namespace MyBlogApp.Server.Controllers
     public class AccountController : ControllerBase
     {
         private UsersService _usersService;
-        public AccountController()
+        public AccountController(MyAppDataContext dataContext)
         {
-            _usersService = new UsersService();
+            _usersService = new UsersService(dataContext);
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            throw new NotImplementedException();
+            var currentUserEmail = HttpContext.User.Identity.Name;
+            var currentUser = _usersService.GetUserByLogin(currentUserEmail);
+
+            if (currentUser != null)
+            {
+                return BadRequest("user = null");
+            }
+            return Ok(new UserModel
+            {
+                Id = currentUser.Id,
+                Name = currentUser.Name,
+                Email = currentUser.Email,
+                Description = currentUser.Description,
+                Photo = currentUser.Photo,
+            });
         }
 
         [HttpPost]
         public IActionResult Create(UserModel user)
         {
             // add user to DB
-
+            var newUser = _usersService.Create(user);
             return Ok(user);
         }
 
@@ -36,7 +50,16 @@ namespace MyBlogApp.Server.Controllers
         public ActionResult<UserModel> Update(UserModel user)
         {
             // check current user from request with user model
+            var currentUserEmail = HttpContext.User.Identity.Name;
+            var currentUser = _usersService.GetUserByLogin(currentUserEmail);
+
+            if (currentUser != null && currentUser?.Id != user.Id)
+            {
+                return BadRequest();
+            }
+
             // update user in DB
+            _usersService.Update(currentUser, user);
 
             return Ok(user);
         }
@@ -44,7 +67,10 @@ namespace MyBlogApp.Server.Controllers
         [HttpDelete]
         public IActionResult Delete()
         {
-            throw new NotImplementedException();
+            var currentUserEmail = HttpContext.User.Identity.Name;
+            var currentUser = _usersService.GetUserByLogin(currentUserEmail); 
+            _usersService.DeleteUser(currentUser);
+            return Ok();
         }
 
         [HttpPost]
