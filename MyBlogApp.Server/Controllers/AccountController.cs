@@ -15,9 +15,9 @@ namespace MyBlogApp.Server.Controllers
     public class AccountController : ControllerBase
     {
         private UsersService _usersService;
-        public AccountController(MyAppDataContext dataContext)
+        public AccountController(UsersService usersService)
         {
-            _usersService = new UsersService(dataContext);
+            _usersService = usersService;
         }
 
         [HttpGet]
