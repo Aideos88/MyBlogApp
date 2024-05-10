@@ -52,7 +52,7 @@ namespace MyBlogApp.Server.Services
 
             return userModel;
         }
-        
+
         public UserModel Update(User userToUpdate, UserModel userModel)
         {
             userToUpdate.Name = userModel.Name;
@@ -92,7 +92,8 @@ namespace MyBlogApp.Server.Services
 
             var claims = new List<Claim>
             {
-            new Claim(ClaimsIdentity.DefaultNameClaimType, currentUser.Email)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, currentUser.Email),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, "User"),
             };
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(

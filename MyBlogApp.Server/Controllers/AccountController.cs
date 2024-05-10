@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MyBlogApp.Server.Data;
 using MyBlogApp.Server.Models;
@@ -8,8 +9,9 @@ using System.Security.Claims;
 
 namespace MyBlogApp.Server.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+    [Route("[controller]")]
     public class AccountController : ControllerBase
     {
         private UsersService _usersService;
@@ -24,7 +26,7 @@ namespace MyBlogApp.Server.Controllers
             var currentUserEmail = HttpContext.User.Identity.Name;
             var currentUser = _usersService.GetUserByLogin(currentUserEmail);
 
-            if (currentUser != null)
+            if (currentUser is null)
             {
                 return BadRequest("user = null");
             }
@@ -39,6 +41,7 @@ namespace MyBlogApp.Server.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Create(UserModel user)
         {
             // add user to DB
@@ -53,7 +56,7 @@ namespace MyBlogApp.Server.Controllers
             var currentUserEmail = HttpContext.User.Identity.Name;
             var currentUser = _usersService.GetUserByLogin(currentUserEmail);
 
-            if (currentUser != null && currentUser?.Id != user.Id)
+            if (currentUser != null && currentUser.Id != user.Id)
             {
                 return BadRequest();
             }
@@ -73,7 +76,8 @@ namespace MyBlogApp.Server.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost("token")]
+        [AllowAnonymous]
         public IActionResult GetToken()
         {
             // get user data from db
