@@ -115,6 +115,18 @@ namespace MyBlogApp.Server.Services
             _dataContext.SaveChanges();
         }
 
+        public void Subscribe(int from, int to)
+        {
+            var subs = new UserSubs
+            {
+                From = from,
+                To = to,
+                Date = DateTime.Now,
+            };
+            _dataContext.UserSubs.Add(subs);
+            _dataContext.SaveChanges();
+        }
+
         private bool VerifyHashedPassword(string password1, string password2)
         {
             return password1 == password2;
