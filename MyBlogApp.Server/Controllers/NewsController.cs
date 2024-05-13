@@ -25,8 +25,9 @@ namespace MyBlogApp.Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] NewsModel newsModel) {
-        
+        public IActionResult Create([FromBody] NewsModel newsModel)
+        {
+            return Ok("не реализован");
         }
         public void Update() { }
         public void Delete() { }

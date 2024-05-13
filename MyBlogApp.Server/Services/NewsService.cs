@@ -7,10 +7,12 @@ namespace MyBlogApp.Server.Services
     public class NewsService
     {
         private MyAppDataContext _dataContext;
+        private NoSQLDataService _noSQLDataService;
 
-        public NewsService(MyAppDataContext dataContext)
+        public NewsService(MyAppDataContext dataContext, NoSQLDataService noSQLDataService)
         {
             _dataContext = dataContext;
+            _noSQLDataService = noSQLDataService;
         }
 
         public List<NewsModel> GetByAuthor(int userId)
@@ -74,11 +76,11 @@ namespace MyBlogApp.Server.Services
 
         public List<NewsModel> GetNewsForCurrentUser(int userId)
         {
-            var subs = _dataContext.UserSubs.Where(x => x.From == userId).ToList();
+            var subs = _noSQLDataService.GetUserSubs(userId);
 
             var allNews = new List<NewsModel>();
 
-            foreach (var sub in subs)
+            foreach (var sub in subs.Users)
             {
                 var allNewsByAuthor = _dataContext.News.Where(x => x.AuthorId == sub.To);
                 allNews.AddRange(allNewsByAuthor.Select(ToModel));
@@ -92,25 +94,20 @@ namespace MyBlogApp.Server.Services
 
         public void SetLike(int newsId, int userId)
         {
-            var like = new NewsLike
-            {
-                From = userId,
-                NewsId = newsId,
-            };
-
-            _dataContext.NewsLike.Add(like);
-            _dataContext.SaveChanges();
+            _noSQLDataService.SetNewsLike(
+                newsId: newsId,
+                from: userId);
         }
 
         private NewsModel ToModel(News news)
         {
-            var likes = _dataContext.NewsLike.Where(x => x.NewsId == news.Id).Count();
+            var likes = _noSQLDataService.GetNewsLikes(news.Id);
             var newsModel = new NewsModel(id: news.Id,
                 text: news.Text,
                 image: news.Image,
                 postDate: news.PostDate);
 
-            newsModel.LikesCount = likes;
+            newsModel.LikesCount = likes.Users.Count;
 
             return newsModel;
         }
