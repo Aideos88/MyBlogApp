@@ -82,7 +82,7 @@ namespace MyBlogApp.Server.Services
 
             foreach (var sub in subs.Users)
             {
-                var allNewsByAuthor = _dataContext.News.Where(x => x.AuthorId == sub.To);
+                var allNewsByAuthor = _dataContext.News.Where(x => x.AuthorId == sub);
                 allNews.AddRange(allNewsByAuthor.Select(ToModel));
             }
 

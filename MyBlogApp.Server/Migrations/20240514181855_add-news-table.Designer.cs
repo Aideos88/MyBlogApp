@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBlogApp.Server.Data;
 
@@ -11,9 +12,11 @@ using MyBlogApp.Server.Data;
 namespace MyBlogApp.Server.Migrations
 {
     [DbContext(typeof(MyAppDataContext))]
-    partial class MyAppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240514181855_add-news-table")]
+    partial class addnewstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -111,6 +111,15 @@ namespace MyBlogApp.Server.Services
             return _dataContext.Users.FirstOrDefault(x => x.Email == email);
         }
 
+        public List<UserModel> GetUsersByName(string name)
+        {
+            return _dataContext.Users
+                .Where(x => x.Name.ToLower()
+                .StartsWith(name.ToLower()))
+                .Select(ToModel)
+                .ToList();
+        }
+
         public void DeleteUser(User user)
         {
             _dataContext.Users.Remove(user);
@@ -125,6 +134,18 @@ namespace MyBlogApp.Server.Services
         private bool VerifyHashedPassword(string password1, string password2)
         {
             return password1 == password2;
+        }
+        private UserModel ToModel(User user)
+        {
+            return new UserModel
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Password = user.Password,
+                Description = user.Description,
+                Photo = user.Photo,
+            };
         }
     }
 }
