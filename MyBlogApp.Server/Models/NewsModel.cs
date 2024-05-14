@@ -3,12 +3,12 @@
     public class NewsModel
     {
         public int Id { get; set; }
-        public string Text { get; private set; }
-        public byte[] Image { get; private set; }
-        public int LikesCount { get; set; }
-        public DateTime PostDate {  get; private set; }
+        public string Text { get; set; }
+        public byte[]? Image { get; set; }
+        public int? LikesCount { get; set; }
+        public DateTime? PostDate {  get; set; }
 
-
+        public NewsModel() { }
 
         public NewsModel(int id, string text, byte[] image, DateTime postDate)
         {

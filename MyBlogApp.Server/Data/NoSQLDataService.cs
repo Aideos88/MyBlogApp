@@ -4,7 +4,7 @@ namespace MyBlogApp.Server.Data
 {
     public class NoSQLDataService
     {
-        private readonly string DBPath = "";
+        private readonly string DBPath = "myLiteDB.db";
 
         private const string SubsCollection = "SubsCollection";
         private const string NewsLikesCollection = "NewsLikesCollection";

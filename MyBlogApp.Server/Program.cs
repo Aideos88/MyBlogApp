@@ -31,6 +31,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddDbContext<MyAppDataContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MyBlogAppDB;Trusted_Connection=True;"));
 
 builder.Services.AddTransient<UsersService>();
+builder.Services.AddTransient<NewsService>();
 builder.Services.AddTransient<NoSQLDataService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -18,6 +18,7 @@ namespace MyBlogApp.Server.Services
         public List<NewsModel> GetByAuthor(int userId)
         {
             var news = _dataContext.News.Where(x => x.AuthorId == userId)
+                .OrderBy(x => x.PostDate)
                 .Reverse()
                 .Select(ToModel)
                 .ToList();
@@ -38,6 +39,7 @@ namespace MyBlogApp.Server.Services
             _dataContext.SaveChanges();
 
             newsModel.Id = newNews.Id;
+            newsModel.PostDate = newNews.PostDate;
             return newsModel;
         }
 
@@ -56,6 +58,8 @@ namespace MyBlogApp.Server.Services
 
             _dataContext.News.Update(newsToUpdate);
             _dataContext.SaveChanges();
+
+            newsModel = ToModel(newsToUpdate);
 
             return newsModel;
         }
@@ -80,6 +84,8 @@ namespace MyBlogApp.Server.Services
 
             var allNews = new List<NewsModel>();
 
+            if (subs is null) return allNews;
+
             foreach (var sub in subs.Users)
             {
                 var allNewsByAuthor = _dataContext.News.Where(x => x.AuthorId == sub);
@@ -102,12 +108,15 @@ namespace MyBlogApp.Server.Services
         private NewsModel ToModel(News news)
         {
             var likes = _noSQLDataService.GetNewsLikes(news.Id);
-            var newsModel = new NewsModel(id: news.Id,
-                text: news.Text,
-                image: news.Image,
-                postDate: news.PostDate);
 
-            newsModel.LikesCount = likes.Users.Count;
+            var newsModel = new NewsModel
+            {
+                Id = news.Id,
+                Text = news.Text,
+                Image = news.Image,
+                PostDate = news.PostDate,
+                LikesCount = likes?.Users.Count ?? 0
+            };
 
             return newsModel;
         }
