@@ -60,7 +60,7 @@ namespace MyBlogApp.Server.Services
             return newsModel;
         }
 
-        public void DeleteNews(int newsId, int userId)
+        public void Delete(int newsId, int userId)
         {
             var newsToDelete = _dataContext.News
                 .FirstOrDefault(x => x.Id == newsId && x.AuthorId == userId);
