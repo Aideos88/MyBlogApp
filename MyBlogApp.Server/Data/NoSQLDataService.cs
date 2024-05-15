@@ -15,7 +15,7 @@ namespace MyBlogApp.Server.Data
             {
                 var subs = db.GetCollection<UserSubs>(SubsCollection);
 
-                var subsForUser = subs.FindOne(x => x.UserId == userId);
+                var subsForUser = subs.FindOne(x => x.Id == userId);
 
                 return subsForUser;
             }
@@ -27,13 +27,20 @@ namespace MyBlogApp.Server.Data
             {
                 var subs = db.GetCollection<UserSubs>(SubsCollection);
 
-                var subsForUser = subs.FindOne(x => x.UserId == from);
+                var subsForUser = subs.FindOne(x => x.Id == from);
+
+                var sub = new UserSub
+                {
+                    Id = to,
+                    Date = DateTime.Now,
+                };
 
                 if (subsForUser != null)
                 {
-                    if (!subsForUser.Users.Contains(to))
+                    if (!subsForUser.Users.Select(x => x.Id).Contains(to))
                     {
-                        subsForUser.Users.Add(to);
+
+                        subsForUser.Users.Add(sub);
                         subs.Update(subsForUser);
                     }
                 }
@@ -41,11 +48,11 @@ namespace MyBlogApp.Server.Data
                 {
                     var newSubsForUser = new UserSubs
                     {
-                        UserId = from,
-                        Users = new List<int> { to }
+                        Id = from,
+                        Users = new List<UserSub> { sub }
                     };
                     subs.Insert(newSubsForUser);
-                    subs.EnsureIndex(x => x.UserId);
+                    subs.EnsureIndex(x => x.Id);
                     subsForUser = newSubsForUser;
                 }
                 return subsForUser;
@@ -58,13 +65,15 @@ namespace MyBlogApp.Server.Data
             {
                 var subs = db.GetCollection<UserSubs>(SubsCollection);
 
-                var subsForUser = subs.FindOne(x => x.UserId == from);
+                var subsForUser = subs.FindOne(x => x.Id == from);
 
                 if (subsForUser != null)
                 {
-                    if (subsForUser.Users.Contains(to))
+                    var subToRemove = subsForUser.Users.FirstOrDefault(x => x.Id == to);
+
+                    if (subsForUser.Users.Select(x => x.Id).Contains(to) && subToRemove != null)
                     {
-                        subsForUser.Users.Remove(to);
+                        subsForUser.Users.Remove(subToRemove);
                         subs.Update(subsForUser);
                     }
                 }

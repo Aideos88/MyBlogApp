@@ -43,6 +43,25 @@ namespace MyBlogApp.Server.Services
             return newsModel;
         }
 
+        public List<NewsModel> Create(List<NewsModel> newsModels, int userId)
+        {
+            foreach (var newsModel in newsModels)
+            {
+                var newNews = new News
+                {
+                    AuthorId = userId,
+                    Text = newsModel.Text,
+                    Image = newsModel.Image,
+                    PostDate = DateTime.Now,
+                };
+                _dataContext.News.Add(newNews);
+            }
+
+            _dataContext.SaveChanges();
+
+            return newsModels;
+        }
+
         public NewsModel Update(NewsModel newsModel, int userId)
         {
             var newsToUpdate = _dataContext.News
@@ -88,7 +107,7 @@ namespace MyBlogApp.Server.Services
 
             foreach (var sub in subs.Users)
             {
-                var allNewsByAuthor = _dataContext.News.Where(x => x.AuthorId == sub);
+                var allNewsByAuthor = _dataContext.News.Where(x => x.AuthorId == sub.Id);
                 allNews.AddRange(allNewsByAuthor.Select(ToModel));
             }
 

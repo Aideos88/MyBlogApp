@@ -52,6 +52,21 @@ namespace MyBlogApp.Server.Controllers
 
             return Ok(newsModelNew);
         }
+        
+        
+        [HttpPost("all")]
+        public IActionResult Create([FromBody] List<NewsModel> news)
+        {
+            var currentUser = _usersService.GetUserByLogin(HttpContext.User.Identity.Name);
+            if (currentUser == null)
+            {
+                return BadRequest();
+            }
+            
+            var newsModelNew = _newsService.Create(news, currentUser.Id);
+
+            return Ok(newsModelNew);
+        }
 
         [HttpPatch]
         public IActionResult Update([FromBody] NewsModel newsModel)
