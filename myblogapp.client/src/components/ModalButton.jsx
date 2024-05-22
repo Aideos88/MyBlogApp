@@ -24,7 +24,7 @@ const ModalButton = ({ modalContent, title, btnName }) => {
                 </Modal.Header>
                 <Modal.Body>{modalContent}</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseModal}>
+                    <Button type='button' className=" btn-secondary" onClick={handleCloseModal}>
                         Закрыть
                     </Button>
                 </Modal.Footer>

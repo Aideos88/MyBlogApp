@@ -30,14 +30,32 @@ const UserProfile = () => {
 
     return (
         <div>
-            <h2>User profile</h2>
-            <p>Name: {user.name}</p>
-            <p>Email: {user.email}</p>
-            <p>Description: {user.description}</p>
-            <ImageComponent base64String={user.photo} />
-            <ModalButton modalContent={<UserProfileCreation user={user} setAction={updateUserView} />} btnName={'Редактирование профиля' } />
-            <button className=" btn-secondary" onClick={() => exitFromProfile()}>Выйти</button>
+            <h2>Профиль пользователя</h2>
+            <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center'
+            }}>
+                <div className='image-box' style={{ width: '50%' }}>
+                    <ImageComponent base64String={user.photo} />
+                </div>
+                <div className='user-data' style={{ margin: '0 10%' }}>
+                    <p>Имя: {user.name}</p>
+                    <p>Email: {user.email}</p>
+                    <p>Описание: {user.description}</p>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-around'
+                        }}>
+                        <ModalButton modalContent={<UserProfileCreation user={user} setAction={updateUserView} />}
+                            btnName={'Редактирование профиля'}
+                            title={'Редактирование профиля'} />
+                        <button type='button' className=" btn-secondary" onClick={() => exitFromProfile()}>Выйти</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
     );
 };
 
