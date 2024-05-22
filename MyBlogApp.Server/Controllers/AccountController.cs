@@ -30,14 +30,9 @@ namespace MyBlogApp.Server.Controllers
             {
                 return BadRequest("user = null");
             }
-            return Ok(new UserModel
-            {
-                Id = currentUser.Id,
-                Name = currentUser.Name,
-                Email = currentUser.Email,
-                Description = currentUser.Description,
-                Photo = currentUser.Photo,
-            });
+
+            var profile = _usersService.ToProfile(currentUser);
+            return Ok(profile);
         }
 
         [HttpPost]
