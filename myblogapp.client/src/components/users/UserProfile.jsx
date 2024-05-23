@@ -3,6 +3,7 @@ import { exitFromProfile, getUser, updateUser } from '../../services/usersServic
 import ImageComponent from '../ImageComponent';
 import ModalButton from '../ModalButton';
 import UserProfileCreation from './UserProfileCreation';
+import { NewsByUser } from '../news/News';
 
 const UserProfile = () => {
     const [user, setUser] = useState({
@@ -46,7 +47,7 @@ const UserProfile = () => {
                     <div style={{
                         display: 'flex',
                         justifyContent: 'space-around'
-                        }}>
+                    }}>
                         <ModalButton modalContent={<UserProfileCreation user={user} setAction={updateUserView} />}
                             btnName={'Редактирование профиля'}
                             title={'Редактирование профиля'} />
@@ -54,6 +55,7 @@ const UserProfile = () => {
                     </div>
                 </div>
             </div>
+            <NewsByUser userId={user.id} />
         </div>
 
     );

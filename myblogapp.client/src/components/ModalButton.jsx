@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, CloseButton, Modal } from 'react-bootstrap';
 
 const ModalButton = ({ modalContent, title, btnName }) => {
     const [showModal, setShowModal] = useState(false);
@@ -17,7 +17,7 @@ const ModalButton = ({ modalContent, title, btnName }) => {
             <Button variant="primary" onClick={handleOpenModal}>
                 {btnName}
             </Button>
-
+            
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>{title}</Modal.Title>

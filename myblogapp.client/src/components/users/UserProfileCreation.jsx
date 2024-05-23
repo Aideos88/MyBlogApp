@@ -28,7 +28,7 @@ const UserProfileCreation = ({ user, setAction }) => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h2>Профил пользователя</h2>
+            <h2>Редактировать пользователя</h2>
             <p>Имя</p>
             <input type='text' defaultValue={userName} onChange={e => setUserName(e.target.value)} />
             <p>Email</p>
