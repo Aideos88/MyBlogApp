@@ -12,6 +12,7 @@ import UserProfile from './components/users/UserProfile.jsx';
 import UserPublicView from './components/users/UserPublicView.jsx';
 import './index.css';
 import { LOGIN_URL, PROFILE_URL, SIGNUP_URL, ALLUSERS_URL } from './services/commonService.jsx';
+import SearchUser from './components/users/SearchUser.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/all',
-    element: <div>Все пользователи</div>
+    element: <SearchUser />
   },
   {
     path: `${ALLUSERS_URL}/:userId`,
