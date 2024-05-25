@@ -6,7 +6,6 @@ import fs from 'fs';
 import path from 'path';
 import child_process from 'child_process';
 import { env } from 'process';
-import { PROFILE_URL } from './src/services/commonService';
 
 const baseFolder =
     env.APPDATA !== undefined && env.APPDATA !== ''
@@ -56,6 +55,10 @@ export default defineConfig({
                 target,
                 secure: false
             },
+            '^/all/:userId': {
+                target,
+                secure: false
+            },            
         },
         port: 5173,
         https: {

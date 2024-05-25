@@ -10,7 +10,6 @@ const ImageUploader = ({ byteImageAction }) => {
             reader.onload = (e) => {
                 const fileContentString = e.target.result;
                 const byteArray = new Uint8Array(e.target.result);
-                // Вы можете выполнить дополнительные действия с массивом байтов здесь
                 byteImageAction(imageUrl, byteArray);
             };
 

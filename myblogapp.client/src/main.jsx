@@ -1,16 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import Login from './components/users/Login.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
   Link,
+  Outlet,
+  RouterProvider,
+  createBrowserRouter
 } from "react-router-dom";
-import { LOGIN_URL, PROFILE_URL, SIGNUP_URL } from './services/commonService.jsx';
-import UserProfile from './components/users/UserProfile.jsx';
+import Login from './components/users/Login.jsx';
 import SignUp from './components/users/SignUp.jsx';
+import UserProfile from './components/users/UserProfile.jsx';
+import UserPublicView from './components/users/UserPublicView.jsx';
+import './index.css';
+import { LOGIN_URL, PROFILE_URL, SIGNUP_URL, ALLUSERS_URL } from './services/commonService.jsx';
 
 const router = createBrowserRouter([
   {
@@ -24,16 +25,25 @@ const router = createBrowserRouter([
   },
   {
     path: LOGIN_URL,
-    element: <Login />,
+    element: <Login />
   },
   {
     path: PROFILE_URL,
-    element: <UserProfile />,
+    element: <UserProfile />
   },
   {
     path: SIGNUP_URL,
-    element: <SignUp />,
-  }
+    element: <SignUp />
+  },
+  {
+    path: '/all',
+    element: <div>Все пользователи</div>
+  },
+  {
+    path: `${ALLUSERS_URL}/:userId`,
+    element: <UserPublicView />
+  },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

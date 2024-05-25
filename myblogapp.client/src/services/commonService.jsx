@@ -1,6 +1,6 @@
-export const ACCOUNT_URL = 'account';
-export const USERS_URL = 'users';
-export const NEWS_URL = 'news';
+export const ACCOUNT_URL = '/account';
+export const USERS_URL = '/users';
+export const NEWS_URL = '/news';
 
 const BASE_URL = 'login';
 const TOKEN_NAME = 'Token';
@@ -8,7 +8,8 @@ const TOKEN_NAME = 'Token';
 export const PROFILE_URL = '/profile';
 export const LOGIN_URL = '/login';
 export const SIGNUP_URL = '/signup'
-
+export const ALLUSERS_URL = '/all';
+export const ALLNEWS_URL = '/allnews';
 
 export async function getToken(login, password) {
     const url = ACCOUNT_URL + '/token';
