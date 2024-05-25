@@ -1,8 +1,17 @@
 import ImageComponent from '../ImageComponent';
 import { NewsByUser } from '../news/News';
 import '../../custom.css';
+import NewsCreation from '../news/NewsCreation';
+import { createNews } from '../../services/newsService';
+import { PROFILE_URL } from '../../services/commonService';
+import ModalButton from '../ModalButton';
 
 const UserView = ({ user }) => {
+
+    const addNewNews = (news) => {
+        createNews(news);
+        window.location.href = PROFILE_URL;
+    }
 
     return (
         <div>
@@ -26,6 +35,9 @@ const UserView = ({ user }) => {
                     </div>
                 </div>
             </div>
+            <ModalButton modalContent={<NewsCreation id={0} oldtext={''} oldImage={''} setAction={addNewNews} />}
+                btnName={'Добавить запись'}
+                title={'Новая запись'} />
             <NewsByUser userId={user.id} />
         </div>
     );

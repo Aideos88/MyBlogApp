@@ -4,6 +4,7 @@ import ModalButton from '../ModalButton';
 import UserProfileCreation from './UserProfileCreation';
 import UserView from './UserView';
 
+
 const UserProfile = () => {
     const [user, setUser] = useState({
         id: '',
@@ -41,7 +42,7 @@ const UserProfile = () => {
                     title={'Редактирование профиля'} />
                 <button type='button' className=" btn-secondary" onClick={() => exitFromProfile()}>Выйти</button>
             </div>
-            <UserView user={user} />
+            <UserView user={user} />            
         </div>
     );
 };
