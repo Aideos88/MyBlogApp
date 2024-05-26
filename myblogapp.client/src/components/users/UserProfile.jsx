@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { exitFromProfile, getUser, updateUser } from '../../services/usersService';
 import ModalButton from '../ModalButton';
 import UserProfileCreation from './UserProfileCreation';
 import UserView from './UserView';
 
-
 const UserProfile = () => {
     const [user, setUser] = useState({
-        id: '',
+        id: 0,
         name: '',
         email: '',
         description: '',
@@ -31,18 +30,18 @@ const UserProfile = () => {
 
     return (
         <div>
-            <h2>Профиль пользователя</h2>
-            <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'flex-end'
-            }}>
-                <ModalButton modalContent={<UserProfileCreation user={user} setAction={updateUserView} />}
-                    btnName={'Редактирование профиля'}
+            <div style={
+                {
+                    display: 'flex',
+                    justifyContent: 'flex-end'
+                }}>
+                <ModalButton
+                    btnName={'Редактировать'}
+                    modalContent={<UserProfileCreation user={user} setAction={updateUserView} />}
                     title={'Редактирование профиля'} />
-                <button type='button' className=" btn-secondary" onClick={() => exitFromProfile()}>Выйти</button>
+                <button className="btn btn-secondary" onClick={() => exitFromProfile()}>Выход</button>
             </div>
-            <UserView user={user} />            
+            <UserView user={user} isProfile={true} />
         </div>
     );
 };
