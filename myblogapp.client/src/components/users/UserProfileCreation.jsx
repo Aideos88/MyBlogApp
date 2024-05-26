@@ -24,7 +24,7 @@ const UserProfileCreation = ({ user, setAction }) => {
         setAction(newUser);
     }
 
-    const image = userPhotoStr.length > 0 ? <img src={userPhotoStr} alt="Image" /> : <ImageComponent base64String={user.photo} />;
+    const image = userPhotoStr.length > 0 ? <img src={userPhotoStr} alt="Image" className='image-box'/> : <ImageComponent base64String={user.photo} className='image-box'/>;
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>

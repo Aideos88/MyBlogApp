@@ -1,6 +1,7 @@
 import { useState } from "react"
 import ImageComponent from "../ImageComponent";
 import ImageUploader from "../ImageUploader";
+import "../../custom.css";
 
 const NewsCreation = ({ id, oldtext, oldImage, setAction }) => {
     const [text, setText] = useState(oldtext);
@@ -18,8 +19,10 @@ const NewsCreation = ({ id, oldtext, oldImage, setAction }) => {
     }
 
     const imageView = imageStr.length > 0 ?
-        <img src={imageStr} alt="Image" />
-        : <ImageComponent base64String={oldImage} />;
+            <img src={imageStr} alt="Image" className='image-box'/>
+        : <div className='image-box'>
+            <ImageComponent base64String={oldImage} />;
+        </div>
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
