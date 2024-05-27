@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ImageComponent from "../ImageComponent";
-import { getNewsByUser, updateNews, deleteNews } from "../../services/newsService";
+import { getNewsByUser, updateNews, deleteNews, getNews } from "../../services/newsService";
 import { PROFILE_URL } from "../../services/commonService";
 import ModalButton from "../ModalButton";
 import NewsCreation from "./NewsCreation";
@@ -62,6 +62,34 @@ export const NewsByUser = ({ userId }) => {
                     imageStr={el.image}
                     date={el.postDate}
                     updateAction={setUpdateUser} />
+            })}
+        </div>
+    )
+}
+
+export const NewsForUser = () => {
+    const [news, setNews] = useState([]);
+
+    const getAllNews = async () => {
+        const allNews = await getNews();
+        setNews(allNews);
+    }
+
+    useEffect ( ()=> {
+        getAllNews();
+    },[]);
+
+    return (
+        <div>
+            {news.map((el, key) => {
+                // return <NewsView date={el.postDate} text={el.text} imageStr={el.image}/>
+                return <News key={key} 
+                    id = {el.id}
+                    text = {el.text} 
+                    imageStr={el.image} 
+                    date={el.postDate}
+                    updateAction={getAllNews}
+                />
             })}
         </div>
     )

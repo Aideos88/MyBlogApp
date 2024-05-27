@@ -19,7 +19,7 @@ const Login = () => {
             <input type='text' onChange={e => setUserName(e.target.value)} />
             <p>Password</p>
             <input type='password' onChange={e => setPassword(e.target.value)} />
-            <button className="btn btn-primary" onClick={enterClick}>Enter</button>
+            <button className="btn btn-primary" onClick={enterClick}>Вход</button>
             <button className="btn btn-link" onClick={registrBtnClick}>Зарегистрироваться</button>
         </div>
     );

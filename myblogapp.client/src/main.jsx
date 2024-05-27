@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
+  BrowserRouter,
   Link,
   Outlet,
   RouterProvider,
@@ -11,38 +12,69 @@ import SignUp from './components/users/SignUp.jsx';
 import UserProfile from './components/users/UserProfile.jsx';
 import UserPublicView from './components/users/UserPublicView.jsx';
 import './index.css';
-import { LOGIN_URL, PROFILE_URL, SIGNUP_URL, ALLUSERS_URL } from './services/commonService.jsx';
+import './custom.css';
+import { LOGIN_URL, PROFILE_URL, SIGNUP_URL, ALLUSERS_URL, ALLNEWS_URL } from './services/commonService.jsx';
 import SearchUser from './components/users/SearchUser.jsx';
+import Navigation from './NavigationMenu.jsx';
+import { NewsByUser, NewsForUser } from './components/news/News.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <div>
+      <div className='content'>
+        <Navigation />
         <h1>Hello World</h1>
-        <Link to="login">Login</Link>
       </div>
     ),
   },
   {
     path: LOGIN_URL,
-    element: <Login />
+    element:
+      <div className='content'>
+        <Navigation />
+        <Login />
+      </div>
   },
   {
     path: PROFILE_URL,
-    element: <UserProfile />
+    element:
+      <div className='content'>
+        <Navigation />
+        <UserProfile />
+      </div>
   },
   {
     path: SIGNUP_URL,
-    element: <SignUp />
+    element:
+      <div className='content'>
+        <Navigation />
+        <SignUp />
+      </div>
   },
   {
     path: '/all',
-    element: <SearchUser />
+    element:
+      <div className='content'>
+        <Navigation />
+        <SearchUser />
+      </div>
   },
   {
     path: `${ALLUSERS_URL}/:userId`,
-    element: <UserPublicView />
+    element:
+      <div className='content'>
+        <Navigation />
+        <UserPublicView />
+      </div>
+  },
+  {
+    path: ALLNEWS_URL,
+    element:
+    <div className='content'>
+        <Navigation />
+        <NewsForUser />
+      </div>
   },
 
 ]);
