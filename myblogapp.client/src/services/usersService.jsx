@@ -5,9 +5,9 @@ export async function getUser() {
     return user;
 }
 
-export async function getPublicUser(userId){
+export async function getPublicUser(userId) {
     const user = await sendRequestWithToken(`${USERS_URL}/${userId}`, 'GET');
-    return user; 
+    return user;
 }
 
 export async function updateUser(user) {
@@ -34,5 +34,10 @@ export function exitFromProfile() {
 
 export async function getUsersByName(usersName) {
     const users = await sendRequestWithToken(USERS_URL + `/all/${usersName}`, 'GET');
+    return users;
+}
+
+export async function subscribeToUser(userId) {
+    const users = await sendRequestWithToken(USERS_URL + `/subs/${userId}`, 'POST');
     return users;
 }

@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import ImageComponent from "../ImageComponent";
 import { getNewsByUser, updateNews, deleteNews, getNews } from "../../services/newsService";
-import { PROFILE_URL } from "../../services/commonService";
 import ModalButton from "../ModalButton";
 import NewsCreation from "./NewsCreation";
 import "../../custom.css";
-
 
 export const News = ({ id, text, imageStr, date, updateAction }) => {
 
@@ -28,20 +26,26 @@ export const News = ({ id, text, imageStr, date, updateAction }) => {
                     title={'Новый пост'} />
                 <button className='btn btn-danger' onClick={() => deleteNewsView()}>Удалить</button>
             </div>
-            <div className={'img-box'}>
+            <NewsView date={date} text={text} imageStr={imageStr} />
+        </div>
+    );
+}
+
+const NewsView = ({ date, text, imageStr }) => {
+    return (
+        <div className='news-item'>
+            <div className="img-box">
                 <ImageComponent base64String={imageStr} />
             </div>
             <div>
                 <p>{date}</p>
                 <p>{text}</p>
             </div>
-        </div>
-    );
+        </div>)
 }
 
-export const NewsByUser = ({ userId }) => {
+export const NewsProfileView = ({ userId }) => {
     const [news, setNews] = useState([]);
-    const [updateUser, setUpdateUser] = useState(0);
 
     const getAllNews = async () => {
         if (userId === 0) return;
@@ -51,7 +55,7 @@ export const NewsByUser = ({ userId }) => {
 
     useEffect(() => {
         getAllNews();
-    }, [userId, updateUser]);
+    }, [userId]);
 
     return (
         <div>
@@ -61,7 +65,30 @@ export const NewsByUser = ({ userId }) => {
                     text={el.text}
                     imageStr={el.image}
                     date={el.postDate}
-                    updateAction={setUpdateUser} />
+                    updateAction={getAllNews}
+                />
+            })}
+        </div>
+    )
+}
+
+export const NewsByUser = ({ userId }) => {
+    const [news, setNews] = useState([]);
+
+    const getAllNews = async () => {
+        if (userId === 0) return;
+        const allNews = await getNewsByUser(userId);
+        setNews(allNews);
+    }
+
+    useEffect(() => {
+        getAllNews();
+    }, [userId]);
+
+    return (
+        <div>
+            {news.map((el, key) => {
+                return <NewsView date={el.postDate} text={el.text} imageStr={el.image} />
             })}
         </div>
     )
@@ -75,18 +102,18 @@ export const NewsForUser = () => {
         setNews(allNews);
     }
 
-    useEffect ( ()=> {
+    useEffect(() => {
         getAllNews();
-    },[]);
+    }, []);
 
     return (
         <div>
             {news.map((el, key) => {
-                // return <NewsView date={el.postDate} text={el.text} imageStr={el.image}/>
-                return <News key={key} 
-                    id = {el.id}
-                    text = {el.text} 
-                    imageStr={el.image} 
+                return <NewsView date={el.postDate} text={el.text} imageStr={el.image} />
+                return <News key={key}
+                    id={el.id}
+                    text={el.text}
+                    imageStr={el.image}
                     date={el.postDate}
                     updateAction={getAllNews}
                 />

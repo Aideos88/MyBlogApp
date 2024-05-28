@@ -7,7 +7,7 @@ const ImageComponent = ({ base64String }) => {
     // Создание Data URL
     const imageUrl = `data:image/jpeg;base64,${base64String}`;
 
-    return <img style={{ width: '100%' }} src={imageUrl} alt="Image" />;
+    return <img style={{ width: '70%' }} src={imageUrl} alt="Image" />;
 };
 
 export default ImageComponent;

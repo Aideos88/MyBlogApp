@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { PROFILE_URL, SIGNUP_URL, getToken } from "../../services/commonService";
+import { SIGNUP_URL, getToken } from "../../services/commonService";
 
 const Login = () => {
     const [username, setUserName] = useState();
@@ -15,9 +15,9 @@ const Login = () => {
 
     return (
         <div>
-            <p>Login</p>
+            <p>Логин</p>
             <input type='text' onChange={e => setUserName(e.target.value)} />
-            <p>Password</p>
+            <p>Пароль</p>
             <input type='password' onChange={e => setPassword(e.target.value)} />
             <button className="btn btn-primary" onClick={enterClick}>Вход</button>
             <button className="btn btn-link" onClick={registrBtnClick}>Зарегистрироваться</button>

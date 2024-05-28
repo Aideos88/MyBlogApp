@@ -25,6 +25,9 @@ const router = createBrowserRouter([
       <div className='content'>
         <Navigation />
         <h1>Hello World</h1>
+        <h2>My simple blog app!</h2>
+        <p>Created by Dmitry Serykh</p>
+        <a href='https://github.com/Aideos88/MyBlogApp'>GutHub</a>
       </div>
     ),
   },

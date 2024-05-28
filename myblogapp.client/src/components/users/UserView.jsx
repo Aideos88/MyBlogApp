@@ -1,12 +1,12 @@
 import ImageComponent from '../ImageComponent';
-import { NewsByUser } from '../news/News';
-import '../../custom.css';
+import { NewsByUser, NewsProfileView } from '../news/News';
 import NewsCreation from '../news/NewsCreation';
 import { createNews } from '../../services/newsService';
 import { PROFILE_URL } from '../../services/commonService';
 import ModalButton from '../ModalButton';
+import '../../custom.css';
 
-const UserView = ({ user }) => {
+const UserView = ({ user, isProfile }) => {
 
     const addNewNews = (news) => {
         createNews(news);
@@ -35,12 +35,18 @@ const UserView = ({ user }) => {
                     </div>
                 </div>
             </div>
-            <ModalButton modalContent={<NewsCreation id={0} oldtext={''} oldImage={''} setAction={addNewNews} />}
-                btnName={'Добавить запись'}
-                title={'Новая запись'} />
-            <NewsByUser userId={user.id} />
+
+            {isProfile ?
+                <div>
+                    <ModalButton
+                        btnName={'Создать пост'}
+                        modalContent={<NewsCreation id={0} oldtext={''} oldImage={''} setAction={addNewNews} />}
+                        title={'Новый пост'} />
+                    <NewsProfileView userId={user.id} />
+                </div> :
+                <NewsByUser userId={user.id} />}
         </div>
-    );
+    )
 }
 
 export default UserView;

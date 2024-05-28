@@ -2,6 +2,7 @@ import { useState } from "react";
 import { getUsersByName } from "../../services/usersService"
 import ShortUserView from "./UserShortView";
 import { LOGIN_URL, isUserOnline } from "../../services/commonService";
+import "../../custom.css"
 
 const SearchUser = () => {
 
